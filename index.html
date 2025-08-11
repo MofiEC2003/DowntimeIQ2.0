@@ -35,6 +35,9 @@ tailwind.config = {
       padding-block: 5.5rem; /* más espacio en pantallas grandes */
     }
   }
+  /* Scroll reveal */
+.reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
+.reveal.show{opacity:1; transform:none}
 </style>
 
 </head>
@@ -121,7 +124,7 @@ tailwind.config = {
   </section>
 
   <!-- Benefits -->
-  <section id="benefits" class="py-14 md:py-20 bg-slate-50">
+  <section id="benefits" class="py-14 md:py-20 bg-slate-50 reveal">
     <div class="max-w-7xl mx-auto px-4">
       <h2 class="text-3xl font-bold tracking-tight">Beneficios clave</h2>
       <div class="mt-10 grid md:grid-cols-3 gap-5">
@@ -158,7 +161,7 @@ tailwind.config = {
 
 
   <!-- Proof -->
-  <section id="proof" class="py-14 md:py-20 bg-slate-50">
+  <section id="proof" class="py-14 md:py-20 bg-slate-50 reveal">
     <div class="max-w-7xl mx-auto px-4">
       <h2 class="text-3xl font-bold tracking-tight">Resultados típicos</h2>
       <div class="mt-10 grid md:grid-cols-3 gap-5">
@@ -171,7 +174,7 @@ tailwind.config = {
 
 
   <!-- Pricing -->
-  <section id="pricing" class="section bg-slate-50">
+  <section id="pricing" class="section bg-slate-50 reveal">
     <div class="max-w-7xl mx-auto px-4">
       <h2 class="text-3xl font-bold tracking-tight">Precios</h2>
       <p class="mt-2 text-slate-600 max-w-2xl">Empieza con un piloto y escala por sitios y usuarios.</p>
@@ -212,7 +215,7 @@ tailwind.config = {
   </section>
   
   <!-- FAQ -->
-  <section id="faq" class="section">
+  <section id="faq" class="section reveal">
     <div class="max-w-7xl mx-auto px-4">
       <h2 class="text-3xl font-bold tracking-tight">Preguntas frecuentes</h2>
       <div class="mt-10 grid md:grid-cols-2 gap-5">
@@ -307,5 +310,21 @@ tailwind.config = {
       window.open('https://wa.me/523121217240?text=' + text, '_blank');
     });
   </script>
+
+  <script>
+  // Mostrar .reveal cuando entren al viewport
+  document.addEventListener('DOMContentLoaded', function () {
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('show');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: .15 });
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  });
+</script>
+
 </body>
 </html>
