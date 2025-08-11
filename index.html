@@ -84,9 +84,18 @@ tailwind.config = {
           <a href="#benefits" class="inline-flex justify-center px-5 py-3 rounded-2xl border border-brand/20 text-brand hover:bg-brand/5">Ver beneficios</a>
         </div>
         <div class="mt-6 grid grid-cols-3 gap-3 text-center text-slate-600">
-          <div class="bg-white rounded-2xl p-4 border"><div class="text-2xl font-extrabold">-25%</div><div class="text-xs">Downtime (60 días)</div></div>
-          <div class="bg-white rounded-2xl p-4 border"><div class="text-2xl font-extrabold">+15%</div><div class="text-xs">OEE promedio</div></div>
-          <div class="bg-white rounded-2xl p-4 border"><div class="text-2xl font-extrabold">&lt;30min</div><div class="text-xs">Primer dashboard</div></div>
+          <div class="bg-white rounded-2xl p-4 border">
+            <div class="text-2xl font-extrabold counter" data-target="-25">0%</div>
+            <div class="text-xs">Downtime (60 días)</div>
+          </div>
+          <div class="bg-white rounded-2xl p-4 border">
+            <div class="text-2xl font-extrabold counter" data-target="15">0%</div>
+            <div class="text-xs">OEE promedio</div>
+          </div>
+          <div class="bg-white rounded-2xl p-4 border">
+            <div class="text-2xl font-extrabold counter" data-target="30">&lt;0min</div>
+            <div class="text-xs">Primer dashboard</div>
+          </div>
         </div>
       </div>
 
@@ -323,6 +332,50 @@ tailwind.config = {
       });
     }, { threshold: .15 });
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  });
+</script>
+<script>
+  // Conteo suave para los KPIs del hero
+  function animateCounters(){
+    const DURATION = 900; // ms la animación completa
+    document.querySelectorAll('.counter').forEach(el=>{
+      const target = parseInt(el.dataset.target, 10);
+      const isNegative = target < 0;
+      const isPercent = el.textContent.includes('%');
+      const isMinute  = el.innerHTML.includes('&lt;');
+
+      const start = 0;
+      const end = Math.abs(target);
+      const t0 = performance.now();
+
+      function tick(now){
+        const p = Math.min(1, (now - t0) / DURATION);    // 0 → 1
+        const val = Math.round(end * p);
+
+        if (isMinute) {
+          el.innerHTML = `&lt;${val}min`;
+        } else if (isPercent) {
+          el.textContent = (isNegative ? '-' : '') + val + '%';
+        } else {
+          el.textContent = val;
+        }
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+
+  // Lanza la animación cuando el hero entra al viewport
+  document.addEventListener('DOMContentLoaded', function(){
+    const heroSection = document.querySelector('section.bg-gradient-to-b');
+    if(!heroSection) return;
+    const io = new IntersectionObserver(entries=>{
+      if(entries[0].isIntersecting){
+        animateCounters();
+        io.disconnect();
+      }
+    }, { threshold: .4 });
+    io.observe(heroSection);
   });
 </script>
 
