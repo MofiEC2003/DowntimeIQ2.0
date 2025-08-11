@@ -154,22 +154,73 @@ tailwind.config = {
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section id="faq" class="py-14 md:py-20">
+
+  <!-- Pricing -->
+  <section id="pricing" class="section bg-slate-50">
     <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold tracking-tight">Preguntas frecuentes</h2>
-      <div class="mt-6 grid md:grid-cols-2 gap-5">
-        <div class="p-5 border rounded-2xl bg-white">
-          <h3 class="font-medium">¿Necesito sensores o PLCs para empezar?</h3>
-          <p class="text-sm text-slate-600 mt-1">No. Puedes iniciar con captura manual y CSV/Google Sheets.</p>
+      <h2 class="text-3xl font-bold tracking-tight">Precios</h2>
+      <p class="mt-2 text-slate-600 max-w-2xl">Empieza con un piloto y escala por sitios y usuarios.</p>
+      <div class="mt-6 grid md:grid-cols-3 gap-5">
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white">
+          <div class="text-sm text-slate-500">Piloto</div>
+          <div class="mt-1 text-3xl font-extrabold">$ FREE</div>
+          <ul class="mt-3 text-sm text-slate-600 space-y-2">
+            <li>• 1 sitio • 5 usuarios</li>
+            <li>• Tablero base OEE/Paros</li>
+            <li>• Soporte por chat</li>
+            <li>• 2 semanas de prueba</li>
+          </ul>
+          <a href="#contact" class="mt-4 inline-block px-4 py-2 rounded-xl bg-brand text-white">Probar ahora</a>
         </div>
-        <div class="p-5 border rounded-2xl bg-white">
-          <h3 class="font-medium">¿Cuánto tarda la implementación?</h3>
-          <p class="text-sm text-slate-600 mt-1">Setup base el mismo día; primer dashboard en menos de 30 minutos.</p>
+        <div class="p-6 rounded-2xl border-2 border-brand bg-white">
+          <div class="text-sm text-brand">Profesional</div>
+          <div class="mt-1 text-3xl font-extrabold">$ —</div>
+          <ul class="mt-3 text-sm text-slate-600 space-y-2">
+            <li>• Usuarios y sitios flexibles</li>
+            <li>• Alertas y permisos avanzados</li>
+            <li>• Integraciones y reportes</li>
+          </ul>
+          <a href="#contact" class="mt-4 inline-block px-4 py-2 rounded-xl bg-brand text-white">Solicitar cotización</a>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white">
+          <div class="text-sm text-slate-500">Enterprise</div>
+          <div class="mt-1 text-3xl font-extrabold">$ —</div>
+          <ul class="mt-3 text-sm text-slate-600 space-y-2">
+            <li>• Multi-planta y SSO</li>
+            <li>• SLA dedicado</li>
+            <li>• Roadmap compartido</li>
+          </ul>
+          <a href="#contact" class="mt-4 inline-block px-4 py-2 rounded-xl bg-brand text-white">Hablar con ventas</a>
         </div>
       </div>
     </div>
   </section>
+  
+  <!-- FAQ -->
+  <section id="faq" class="section">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold tracking-tight">Preguntas frecuentes</h2>
+      <div class="mt-6 grid md:grid-cols-2 gap-5">
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white">
+          <h3 class="font-medium">¿Necesito sensores o PLCs para empezar?</h3>
+          <p class="text-sm text-slate-600 mt-1">No. Puedes iniciar con captura manual guiada y subir datos por CSV o Google Sheets. API/OPC‑UA en hoja de ruta.</p>
+        </div>
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white">
+          <h3 class="font-medium">¿Cuánto tarda la implementación?</h3>
+          <p class="text-sm text-slate-600 mt-1">Setup base en el mismo día; primer dashboard en menos de 30 minutos.</p>
+        </div>
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white">
+          <h3 class="font-medium">¿Soportan múltiples plantas/áreas?</h3>
+          <p class="text-sm text-slate-600 mt-1">Sí. Jerarquías por sitio, área y equipo con permisos por rol.</p>
+        </div>
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white">
+          <h3 class="font-medium">¿Cómo se calcula el precio?</h3>
+          <p class="text-sm text-slate-600 mt-1">Por sitio y usuarios. Contáctanos para una propuesta a tu medida.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
 
   <!-- CTA final -->
   <section class="py-10 bg-brand text-white">
@@ -193,7 +244,7 @@ tailwind.config = {
   </footer>
 
   <!-- WhatsApp flotante -->
-  <a href="https://wa.me/523121217240?text=Hola%20me%20interesa%20DowntimeIQ" class="fixed bottom-5 right-5 rounded-full bg-brand2 text-white px-4 py-3 shadow" style="box-shadow:var(--shadow)">WhatsApp</a>
+  <a href="https://wa.me/..." class="fixed bottom-5 right-5 rounded-full px-4 py-3 shadow" style="background-color:#25D366;color:white;box-shadow:var(--shadow)">WhatsApp</a>
 
   <script>
     function buildBody(f) {
