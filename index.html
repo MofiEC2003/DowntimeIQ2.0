@@ -25,7 +25,18 @@ tailwind.config = {
   :root { --shadow: 0 12px 40px rgba(2,6,23,.12); }
   body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
   html { scroll-behavior: smooth; }
+
+  /* Agregamos espacio vertical para todas las secciones con class="section" */
+  .section {
+    padding-block: 4rem; /* espacio arriba y abajo */
+  }
+  @media (min-width:768px) {
+    .section {
+      padding-block: 5.5rem; /* más espacio en pantallas grandes */
+    }
+  }
 </style>
+
 </head>
 <body class="bg-white text-slate-900">
   <!-- Header -->
