@@ -392,7 +392,7 @@ button:hover, a.inline-block:hover, a.inline-flex:hover {
         const val = Math.round(end * p);
 
         if (isMinute) {
-          el.innerHTML = &lt;${val}min;
+          el.innerHTML = `&lt;${val}min`;
         } else if (isPercent) {
           el.textContent = (isNegative ? '-' : '') + val + '%';
         } else {
