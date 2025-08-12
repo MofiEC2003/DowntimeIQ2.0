@@ -1,4 +1,7 @@
-<!doctype html>
+# Build the optimized index.html with hover effects applied across content
+from pathlib import Path
+
+html = """<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
@@ -6,15 +9,16 @@
 <title>DowntimeIQ — Reduce tiempos muertos y mejora tu OEE</title>
 <meta name="description" content="DowntimeIQ centraliza paros, causas y KPIs (OEE, MTTR, MTTF) para atacar cuellos de botella y reducir tiempos muertos desde el día uno.">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
+<script src="https://cdn.tailwindcss.com" defer></script>
+<script defer>
 tailwind.config = {
   theme: {
     extend: {
       colors: {
-        brand: '#0f3d8a',
-        brand2: '#3b82f6',
+        brand: '#0f3d8a',   // azul principal
+        brand2: '#3b82f6',  // azul acento
         ink: '#0b1220'
       }
     }
@@ -23,12 +27,18 @@ tailwind.config = {
 </script>
 <style>
   :root { --shadow: 0 12px 40px rgba(2,6,23,.12); }
-  body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
   html { scroll-behavior: smooth; }
+  body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+
+  /* Espaciado coherente de secciones */
   .section { padding-block: 4rem; }
   @media (min-width:768px) { .section { padding-block: 5.5rem; } }
+
+  /* Aparición al hacer scroll */
   .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
   .reveal.show{opacity:1; transform:none}
+
+  /* Burbujas sutiles en el hero */
   .hero-bubbles{position:absolute; inset:0; pointer-events:none; z-index:1;}
   .bubble{position:absolute; border-radius:9999px; filter:blur(2px); opacity:.18; animation:float 14s ease-in-out infinite}
   .bubble.b1{width:22rem;height:22rem;right:-6rem;top:-4rem;background:#3b82f6}
@@ -40,13 +50,357 @@ tailwind.config = {
     .bubble.b1{width:16rem;height:16rem;right:-4rem;top:-3rem}
     .bubble.b2{width:12rem;height:12rem;left:-3rem;bottom:-4rem}
   }
-  .btn-hover {transition: transform 0.25s ease, box-shadow 0.25s ease;}
-  .btn-hover:hover {transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.12);}
-  .card-hover {transition: transform 0.25s ease, box-shadow 0.25s ease;}
-  .card-hover:hover {transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08);}
+
+  /* Hover/elevación */
+  .btn-hover {transition: transform .2s ease, box-shadow .2s ease;}
+  .btn-hover:hover {transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.12);}
+
+  .card-hover {transition: transform .25s ease, box-shadow .25s ease;}
+  .card-hover:hover {transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,.08);}
 </style>
 </head>
 <body class="bg-white text-slate-900">
-<!-- Aquí iría tu contenido completo con btn-hover y card-hover aplicados -->
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/85 backdrop-blur border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3" aria-label="Inicio DowntimeIQ">
+        <img src="Logo3.png" alt="DowntimeIQ" class="w-9 h-9 rounded-lg object-contain" decoding="async" onerror="this.style.display='none'; document.getElementById('brandText').style.display='inline';">
+        <span id="brandText" class="hidden font-semibold">DowntimeIQ</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm" aria-label="Principal">
+        <a href="#benefits" class="hover:text-slate-700">Beneficios</a>
+        <a href="#features" class="hover:text-slate-700">Características</a>
+        <a href="#proof" class="hover:text-slate-700">Resultados</a>
+        <a href="#faq" class="hover:text-slate-700">FAQ</a>
+      </nav>
+      <a href="#form" class="hidden sm:inline-flex px-4 py-2 rounded-2xl bg-brand text-white text-sm btn-hover" style="box-shadow:var(--shadow)">Solicitar demo</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-white to-slate-50 relative">
+    <div class="hero-bubbles">
+      <div class="bubble b1"></div>
+      <div class="bubble b2"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-10 md:py-16 grid md:grid-cols-2 gap-10 items-center relative z-10">
+      <!-- Copy izquierda -->
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/5 text-brand border border-brand/10 text-xs">
+          ◦ Piloto disponible en México
+        </div>
+        <h1 class="mt-3 text-4xl md:text-6xl font-extrabold leading-tight text-ink">
+          Reduce <span class="text-brand">tiempos muertos</span> y mejora tu <span class="underline decoration-brand2 decoration-4 underline-offset-4">OEE</span>
+        </h1>
+        <p class="mt-4 text-slate-600 text-lg">
+          Captura de paros en piso, clasificación de causas y KPIs automáticos (OEE, MTTR, MTTF). Decisiones en minutos, no semanas.
+        </p>
+        <ul class="mt-5 grid sm:grid-cols-2 gap-2 text-sm text-slate-700">
+          <li class="flex items-start gap-2"><span>✔</span> Implementación en el mismo día</li>
+          <li class="flex items-start gap-2"><span>✔</span> Reportes ejecutivos automáticos</li>
+          <li class="flex items-start gap-2"><span>✔</span> Captura en móvil o tablet</li>
+          <li class="flex items-start gap-2"><span>✔</span> Roles y permisos por área</li>
+        </ul>
+        <div class="mt-6 flex flex-col sm:flex-row gap-3">
+          <a href="#form" class="inline-flex justify-center px-5 py-3 rounded-2xl bg-brand text-white btn-hover" style="box-shadow:var(--shadow)">Agendar demo</a>
+          <a href="#benefits" class="inline-flex justify-center px-5 py-3 rounded-2xl border border-brand/20 text-brand hover:bg-brand/5 btn-hover">Ver beneficios</a>
+        </div>
+        <div class="mt-6 grid grid-cols-3 gap-3 text-center text-slate-600">
+          <div class="bg-white rounded-2xl p-4 border card-hover">
+            <div class="text-2xl font-extrabold counter" data-target="-25">0%</div>
+            <div class="text-xs">Downtime (60 días)</div>
+          </div>
+          <div class="bg-white rounded-2xl p-4 border card-hover">
+            <div class="text-2xl font-extrabold counter" data-target="15">0%</div>
+            <div class="text-xs">OEE promedio</div>
+          </div>
+          <div class="bg-white rounded-2xl p-4 border card-hover">
+            <div class="text-2xl font-extrabold counter" data-target="30">&lt;0min</div>
+            <div class="text-xs">Primer dashboard</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form derecha -->
+      <div id="form">
+        <div class="bg-white rounded-3xl border p-6 md:p-8 shadow-[var(--shadow)] card-hover">
+          <h2 class="text-xl font-bold">Agenda tu demo</h2>
+          <p class="text-sm text-slate-600 mt-1">Déjanos tus datos y te contactamos hoy mismo.</p>
+          <form id="leadFormHero" class="mt-4 grid grid-cols-1 gap-3">
+            <input type="text" name="name" placeholder="Nombre" class="px-4 py-3 rounded-xl border">
+            <input type="text" name="company" placeholder="Empresa" class="px-4 py-3 rounded-xl border">
+            <input type="email" name="email" placeholder="Correo" required class="px-4 py-3 rounded-xl border">
+            <input type="tel" name="phone" placeholder="Teléfono (opcional)" class="px-4 py-3 rounded-xl border">
+            <textarea name="msg" rows="3" placeholder="Mensaje (opcional)" class="px-4 py-3 rounded-xl border"></textarea>
+            <div class="mt-2 grid sm:grid-cols-2 gap-3">
+              <!-- Botón correo: blanco con letras azules -->
+              <button type="submit" class="px-5 py-3 rounded-2xl bg-white text-brand border border-brand btn-hover" style="box-shadow:var(--shadow)">Enviar por correo</button>
+              <!-- Botón WhatsApp: verde oficial -->
+              <button type="button" id="waBtn" class="px-5 py-3 rounded-2xl btn-hover" style="background-color:#25D366;color:white;">WhatsApp</button>
+            </div>
+          </form>
+          <div class="mt-3 text-xs text-slate-500">Al enviar aceptas ser contactado para coordinar la demo.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust bar -->
+  <section class="py-6 border-y bg-white">
+    <div class="max-w-7xl mx-auto px-4 text-slate-500 text-xs md:text-sm flex flex-wrap items-center justify-center gap-6">
+      <span>Metodologías OEE • TPM • Lean</span>
+      <span>•</span>
+      <span>Integración con CSV y Google Sheets</span>
+      <span>•</span>
+      <span>Soporte en México</span>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section id="benefits" class="py-14 md:py-20 bg-slate-50 reveal">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold tracking-tight">Beneficios clave</h2>
+      <div class="mt-10 grid md:grid-cols-3 gap-8">
+        <div class="p-6 bg-white border rounded-2xl card-hover">
+          <h3 class="font-semibold">Visibilidad en tiempo real</h3>
+          <p class="text-sm text-slate-600 mt-1">Pareto, OEE, MTTR/MTTF por línea, área y turno.</p>
+        </div>
+        <div class="p-6 bg-white border rounded-2xl card-hover">
+          <h3 class="font-semibold">Ejecución en piso</h3>
+          <p class="text-sm text-slate-600 mt-1">Captura móvil/tablet con categorías estandarizadas.</p>
+        </div>
+        <div class="p-6 bg-white border rounded-2xl card-hover">
+          <h3 class="font-semibold">Mejora continua</h3>
+          <p class="text-sm text-slate-600 mt-1">Alertas, responsables y seguimiento de acciones.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="section reveal">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold tracking-tight">Características clave</h2>
+      <div class="mt-10 grid md:grid-cols-3 gap-8">
+        <div class="p-5 rounded-2xl border bg-white border-slate-200 card-hover"><div class="text-xs text-slate-500">01</div><h3 class="font-semibold mt-1">Captura rápida</h3><p class="text-sm text-slate-600 mt-1">Operadores registran evento, causa y tiempo en segundos.</p></div>
+        <div class="p-5 rounded-2xl border bg-white border-slate-200 card-hover"><div class="text-xs text-slate-500">02</div><h3 class="font-semibold mt-1">KPIs automáticos</h3><p class="text-sm text-slate-600 mt-1">OEE, Pareto y tendencias sin hojas de cálculo.</p></div>
+        <div class="p-5 rounded-2xl border bg-white border-slate-200 card-hover"><div class="text-xs text-slate-500">03</div><h3 class="font-semibold mt-1">Roles y permisos</h3><p class="text-sm text-slate-600 mt-1">Jerarquías por planta/área/equipo con trazabilidad.</p></div>
+        <div class="p-5 rounded-2xl border bg-white border-slate-200 card-hover"><div class="text-xs text-slate-500">04</div><h3 class="font-semibold mt-1">Integraciones</h3><p class="text-sm text-slate-600 mt-1">CSV/Google Sheets hoy; API y OPC‑UA en hoja de ruta.</p></div>
+        <div class="p-5 rounded-2xl border bg-white border-slate-200 card-hover"><div class="text-xs text-slate-500">05</div><h3 class="font-semibold mt-1">Reportes ejecutivos</h3><p class="text-sm text-slate-600 mt-1">PDF/Excel con KPIs y top 5 causas por periodo.</p></div>
+        <div class="p-5 rounded-2xl border bg-white border-slate-200 card-hover"><div class="text-xs text-slate-500">06</div><h3 class="font-semibold mt-1">Alertas y SLAs</h3><p class="text-sm text-slate-600 mt-1">Umbrales de paro, avisos por email/WhatsApp.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proof -->
+  <section id="proof" class="py-14 md:py-20 bg-slate-50 reveal">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold tracking-tight">Resultados típicos</h2>
+      <div class="mt-10 grid md:grid-cols-3 gap-8">
+        <div class="p-6 bg-white border rounded-2xl text-sm text-slate-700 card-hover">“Identificamos el 80% de los paros recurrentes y bajamos el downtime un 22% en 30 días.”<div class="mt-2 text-xs text-slate-500">Gerente de Producción</div></div>
+        <div class="p-6 bg-white border rounded-2xl text-sm text-slate-700 card-hover">“Los reportes de OEE salen solos; dejamos de pelear con hojas de cálculo.”<div class="mt-2 text-xs text-slate-500">Ingeniería de Procesos</div></div>
+        <div class="p-6 bg-white border rounded-2xl text-sm text-slate-700 card-hover">“La captura en piso es inmediata; la adopción fue natural.”<div class="mt-2 text-xs text-slate-500">Líder de Celda</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="section bg-slate-50 reveal">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold tracking-tight">Precios</h2>
+      <p class="mt-2 text-slate-600 max-w-2xl">Empieza con un piloto y escala por sitios y usuarios.</p>
+      <div class="mt-10 grid md:grid-cols-3 gap-8">
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white card-hover">
+          <div class="text-sm text-slate-500">Piloto</div>
+          <div class="mt-1 text-3xl font-extrabold">$ FREE</div>
+          <ul class="mt-3 text-sm text-slate-600 space-y-2">
+            <li>• 1 sitio • 5 usuarios</li>
+            <li>• Tablero base OEE/Paros</li>
+            <li>• Soporte por chat</li>
+            <li>• 2 semanas de prueba</li>
+          </ul>
+          <a href="#contact" class="mt-4 inline-block px-4 py-2 rounded-xl bg-brand text-white btn-hover">Probar ahora</a>
+        </div>
+        <div class="p-6 rounded-2xl border-2 border-brand bg-white card-hover">
+          <div class="text-sm text-brand">Profesional</div>
+          <div class="mt-1 text-3xl font-extrabold">$ —</div>
+          <ul class="mt-3 text-sm text-slate-600 space-y-2">
+            <li>• Usuarios y sitios flexibles</li>
+            <li>• Alertas y permisos avanzados</li>
+            <li>• Integraciones y reportes</li>
+          </ul>
+          <a href="#contact" class="mt-4 inline-block px-4 py-2 rounded-xl bg-brand text-white btn-hover">Solicitar cotización</a>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white card-hover">
+          <div class="text-sm text-slate-500">Enterprise</div>
+          <div class="mt-1 text-3xl font-extrabold">$ —</div>
+          <ul class="mt-3 text-sm text-slate-600 space-y-2">
+            <li>• Multi-planta y SSO</li>
+            <li>• SLA dedicado</li>
+            <li>• Roadmap compartido</li>
+          </ul>
+          <a href="#contact" class="mt-4 inline-block px-4 py-2 rounded-xl bg-brand text-white btn-hover">Hablar con ventas</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section reveal">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold tracking-tight">Preguntas frecuentes</h2>
+      <div class="mt-10 grid md:grid-cols-2 gap-8">
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white card-hover">
+          <h3 class="font-medium">¿Necesito sensores o PLCs para empezar?</h3>
+          <p class="text-sm text-slate-600 mt-1">No. Puedes iniciar con captura manual guiada y subir datos por CSV o Google Sheets. API/OPC‑UA en hoja de ruta.</p>
+        </div>
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white card-hover">
+          <h3 class="font-medium">¿Cuánto tarda la implementación?</h3>
+          <p class="text-sm text-slate-600 mt-1">Setup base en el mismo día; primer dashboard en menos de 30 minutos.</p>
+        </div>
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white card-hover">
+          <h3 class="font-medium">¿Soportan múltiples plantas/áreas?</h3>
+          <p class="text-sm text-slate-600 mt-1">Sí. Jerarquías por sitio, área y equipo con permisos por rol.</p>
+        </div>
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white card-hover">
+          <h3 class="font-medium">¿Cómo se calcula el precio?</h3>
+          <p class="text-sm text-slate-600 mt-1">Por sitio y usuarios. Contáctanos para una propuesta a tu medida.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA final -->
+  <section class="py-10 bg-brand text-white">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <h3 class="text-xl font-semibold">¿Listo para bajar el downtime?</h3>
+        <p class="text-blue-100 text-sm">Agenda una demo y recibe tu primer tablero en menos de 30 minutos.</p>
+      </div>
+      <a href="#form" class="inline-flex px-5 py-3 rounded-2xl bg-white text-brand font-medium btn-hover">Quiero mi demo</a>
+    </div>
+  </section>
+
+  <footer class="border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>© 2025 DowntimeIQ. Todos los derechos reservados.</div>
+      <div class="flex items-center gap-4">
+        <a href="#" class="hover:text-slate-700">Privacidad</a>
+        <a href="#" class="hover:text-slate-700">Términos</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp flotante -->
+  <a href="https://wa.me/523121217240?text=Hola%20me%20interesa%20DowntimeIQ"
+     class="fixed bottom-5 right-5 rounded-full px-4 py-3 shadow btn-hover"
+     style="background-color:#25D366;color:white;box-shadow:var(--shadow)"
+     aria-label="Abrir chat de WhatsApp">
+    WhatsApp
+  </a>
+
+  <!-- Scripts -->
+  <script>
+    function buildBody(f) {
+      const get = (sel) => f.querySelector(sel)?.value?.trim() || '';
+      const name = get('[name="name"]');
+      const company = get('[name="company"]');
+      const email = get('[name="email"]');
+      const phone = get('[name="phone"]');
+      const msg = get('textarea[name="msg"]');
+      return { name, company, email, phone, msg };
+    }
+    // Mail submit
+    document.addEventListener('DOMContentLoaded', function(){
+      const lead = document.getElementById('leadFormHero');
+      if(lead){
+        lead.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const {name, company, email, phone, msg} = buildBody(this);
+          const subject = encodeURIComponent('Demo DowntimeIQ');
+          const body = encodeURIComponent(
+            'Nombre: ' + name + '\\n' +
+            'Empresa: ' + company + '\\n' +
+            'Correo: ' + email + '\\n' +
+            'Teléfono: ' + phone + '\\n' +
+            'Mensaje: ' + msg
+          );
+          window.location.href = 'mailto:arturoescobos@hotmail.com?subject=' + subject + '&body=' + body;
+        });
+        const wa = document.getElementById('waBtn');
+        if(wa){
+          wa.addEventListener('click', function() {
+            const {name, company, email, phone, msg} = buildBody(lead);
+            const text = encodeURIComponent(
+              'Hola, me interesa DowntimeIQ.\\n' +
+              'Nombre: ' + name + '\\n' +
+              'Empresa: ' + company + '\\n' +
+              'Correo: ' + email + '\\n' +
+              'Teléfono: ' + phone + '\\n' +
+              'Mensaje: ' + msg
+            );
+            window.open('https://wa.me/523121217240?text=' + text, '_blank');
+          });
+        }
+      }
+    });
+  </script>
+
+  <script>
+    // Mostrar .reveal cuando entren al viewport
+    document.addEventListener('DOMContentLoaded', function () {
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.classList.add('show');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: .15 });
+      document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    });
+  </script>
+
+  <script>
+    // Conteo suave para los KPIs del hero
+    function animateCounters(){
+      const DURATION = 900; // ms
+      document.querySelectorAll('.counter').forEach(el=>{
+        const target = parseInt(el.dataset.target, 10);
+        const isNegative = target < 0;
+        const isPercent = el.textContent.includes('%');
+        const isMinute  = el.innerHTML.includes('&lt;');
+        const start = 0, end = Math.abs(target);
+        const t0 = performance.now();
+        function tick(now){
+          const p = Math.min(1, (now - t0) / DURATION);
+          const val = Math.round(end * p);
+          if (isMinute) { el.innerHTML = `&lt;${val}min`; }
+          else if (isPercent) { el.textContent = (isNegative ? '-' : '') + val + '%'; }
+          else { el.textContent = val; }
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }
+    // Lanza cuando el hero entra al viewport
+    document.addEventListener('DOMContentLoaded', function(){
+      const heroSection = document.querySelector('section.bg-gradient-to-b');
+      if(!heroSection) return;
+      const io = new IntersectionObserver(entries=>{
+        if(entries[0].isIntersecting){
+          animateCounters();
+          io.disconnect();
+        }
+      }, { threshold: .4 });
+      io.observe(heroSection);
+    });
+  </script>
 </body>
 </html>
+"""
+
+out = Path("/mnt/data/index-optimizado.html")
+out.write_text(html, encoding="utf-8")
+out
