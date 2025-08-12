@@ -39,15 +39,19 @@ tailwind.config = {
 .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
 .reveal.show{opacity:1; transform:none}
 
-/* Burbujas sutiles en el hero — PRUEBA VISIBLE */
-.hero-bubbles{position:absolute; inset:0; pointer-events:none; z-index:1;} /* <-- subimos z-index */
-.bubble{position:absolute; border-radius:9999px; filter:blur(1px); opacity:.45; animation:float 10s ease-in-out infinite}
-.bubble.b1{width:26rem;height:26rem;right:-6rem;top:-4rem;background:#3b82f6}
-.bubble.b2{width:18rem;height:18rem;left:-5rem;bottom:-6rem;background:#0f3d8a; animation-duration:12s; animation-delay:.5s}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(14px)}}
+/* Burbujas sutiles en el hero — versión final */
+.hero-bubbles{position:absolute; inset:0; pointer-events:none; z-index:1;}
+.bubble{position:absolute; border-radius:9999px; filter:blur(2px); opacity:.18; animation:float 14s ease-in-out infinite}
+.bubble.b1{width:22rem;height:22rem;right:-6rem;top:-4rem;background:#3b82f6}
+.bubble.b2{width:16rem;height:16rem;left:-5rem;bottom:-6rem;background:#0f3d8a; animation-duration:18s; animation-delay:.8s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(12px)}}
 
-@media (prefers-reduced-motion: reduce){
-  .bubble{animation:none}
+/* Menos movimiento para quien lo pida y en pantallas chicas */
+@media (prefers-reduced-motion: reduce){ .bubble{animation:none} }
+@media (max-width: 640px){
+  .bubble{opacity:.12}
+  .bubble.b1{width:16rem;height:16rem;right:-4rem;top:-3rem}
+  .bubble.b2{width:12rem;height:12rem;left:-3rem;bottom:-4rem}
 }
 
 
