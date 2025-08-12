@@ -503,6 +503,18 @@ document.querySelectorAll('.faq-item').forEach(item => {
   });
 });
 </script>
+
+<script>
+(function(){
+  document.querySelectorAll('.reveal').forEach(sec=>{
+    const cards = sec.querySelectorAll('.card-hover, .p-6.rounded-2xl, .p-5.rounded-2xl, [class*="rounded-2xl"].border');
+    cards.forEach(el=>{
+      if(!el.hasAttribute('data-reveal')) el.setAttribute('data-reveal','');
+    });
+  });
+})();
+</script>
+
 <script>
 (function(){
   const opts = { threshold: .15, rootMargin: "0px 0px -40px 0px" };
@@ -527,16 +539,6 @@ document.querySelectorAll('.faq-item').forEach(item => {
 })();
 </script>
 
-<script>
-(function(){
-  document.querySelectorAll('.reveal').forEach(sec=>{
-    const cards = sec.querySelectorAll('.card-hover, .p-6.rounded-2xl, .p-5.rounded-2xl, [class*="rounded-2xl"].border');
-    cards.forEach(el=>{
-      if(!el.hasAttribute('data-reveal')) el.setAttribute('data-reveal','');
-    });
-  });
-})();
-</script>
 
 
 </body>
