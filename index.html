@@ -89,6 +89,20 @@ button:hover, a.inline-block:hover, a.inline-flex:hover {
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
+.faq-item {
+  transition: background-color 0.25s ease;
+}
+.faq-item:hover {
+  background-color: #f9fafb; /* un gris muy suave */
+}
+.toggle-icon {
+  font-weight: bold;
+  transition: transform 0.25s ease;
+}
+.faq-item.open .toggle-icon {
+  transform: rotate(45deg); /* El + se convierte en una x */
+}
+
 </style>
 
 </head>
@@ -279,31 +293,56 @@ button:hover, a.inline-block:hover, a.inline-flex:hover {
     </div>
   </section>
   
-  <!-- FAQ -->
-  <section id="faq" class="section reveal">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold tracking-tight">Preguntas frecuentes</h2>
-      <div class="mt-10 grid md:grid-cols-2 gap-5">
-        <div class="p-5 rounded-2xl border border-slate-200 bg-white card-hover">
-          <h3 class="font-medium">¿Necesito sensores o PLCs para empezar?</h3>
-          <p class="text-sm text-slate-600 mt-1">No. Puedes iniciar con captura manual guiada y subir datos por CSV o Google Sheets. API/OPC‑UA en hoja de ruta.</p>
-        </div>
-        <div class="p-5 rounded-2xl border border-slate-200 bg-white card-hover">
-          <h3 class="font-medium">¿Cuánto tarda la implementación?</h3>
-          <p class="text-sm text-slate-600 mt-1">Setup base en el mismo día; primer dashboard en menos de 30 minutos.</p>
-        </div>
-        <div class="p-5 rounded-2xl border border-slate-200 bg-white card-hover">
-          <h3 class="font-medium">¿Soportan múltiples plantas/áreas?</h3>
-          <p class="text-sm text-slate-600 mt-1">Sí. Jerarquías por sitio, área y equipo con permisos por rol.</p>
-        </div>
-        <div class="p-5 rounded-2xl border border-slate-200 bg-white card-hover">
-          <h3 class="font-medium">¿Cómo se calcula el precio?</h3>
-          <p class="text-sm text-slate-600 mt-1">Por sitio y usuarios. Contáctanos para una propuesta a tu medida.</p>
-        </div>
+<!-- FAQ -->
+<section id="faq" class="section reveal">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-3xl font-bold tracking-tight">Preguntas frecuentes</h2>
+    <div class="mt-10 grid md:grid-cols-2 gap-5">
+
+      <div class="faq-item p-5 rounded-2xl border border-slate-200 bg-white cursor-pointer">
+        <h3 class="font-medium flex justify-between items-center">
+          ¿Necesito sensores o PLCs para empezar?
+          <span class="toggle-icon text-brand text-lg">+</span>
+        </h3>
+        <p class="faq-answer text-sm text-slate-600 mt-1 hidden">
+          No. Puedes iniciar con captura manual guiada y subir datos por CSV o Google Sheets. API/OPC-UA en hoja de ruta.
+        </p>
       </div>
+
+      <div class="faq-item p-5 rounded-2xl border border-slate-200 bg-white cursor-pointer">
+        <h3 class="font-medium flex justify-between items-center">
+          ¿Cuánto tarda la implementación?
+          <span class="toggle-icon text-brand text-lg">+</span>
+        </h3>
+        <p class="faq-answer text-sm text-slate-600 mt-1 hidden">
+          Setup base en el mismo día; primer dashboard en menos de 30 minutos.
+        </p>
+      </div>
+
+      <div class="faq-item p-5 rounded-2xl border border-slate-200 bg-white cursor-pointer">
+        <h3 class="font-medium flex justify-between items-center">
+          ¿Soportan múltiples plantas/áreas?
+          <span class="toggle-icon text-brand text-lg">+</span>
+        </h3>
+        <p class="faq-answer text-sm text-slate-600 mt-1 hidden">
+          Sí. Jerarquías por sitio, área y equipo con permisos por rol.
+        </p>
+      </div>
+
+      <div class="faq-item p-5 rounded-2xl border border-slate-200 bg-white cursor-pointer">
+        <h3 class="font-medium flex justify-between items-center">
+          ¿Cómo se calcula el precio?
+          <span class="toggle-icon text-brand text-lg">+</span>
+        </h3>
+        <p class="faq-answer text-sm text-slate-600 mt-1 hidden">
+          Por sitio y usuarios. Contáctanos para una propuesta a tu medida.
+        </p>
+      </div>
+
     </div>
-  </section>
-  
+  </div>
+</section>
+
 
   <!-- CTA final -->
   <section class="py-10 bg-brand text-white">
@@ -433,6 +472,22 @@ button:hover, a.inline-block:hover, a.inline-flex:hover {
     }, { threshold: .4 });
     io.observe(heroSection);
   });
+</script>
+  
+<script>
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-answer').classList.add('hidden');
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      item.querySelector('.faq-answer').classList.remove('hidden');
+    }
+  });
+});
 </script>
 
 </body>
