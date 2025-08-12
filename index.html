@@ -129,7 +129,17 @@ button:hover, a.inline-block:hover, a.inline-flex:hover {
   <header class="sticky top-0 z-50 bg-white/85 backdrop-blur border-b border-slate-100">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <img src="Logo3.png" alt="DowntimeIQ" class="w-9 h-9 rounded-lg object-contain" onerror="this.style.display='none'; document.getElementById('brandText').style.display='inline';">
+        <img
+          src="Logo3.png"
+          alt="DowntimeIQ"
+          class="w-9 h-9 rounded-lg object-contain"
+          width="36" height="36"
+          decoding="async"
+          fetchpriority="high"
+          loading="eager"
+          onerror="this.style.display='none'; document.getElementById('brandText').style.display='inline';"
+        />
+
         <span id="brandText" class="hidden font-semibold">DowntimeIQ</span>
       </a>
       <nav class="hidden md:flex items-center gap-6 text-sm">
